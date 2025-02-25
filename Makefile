@@ -2,7 +2,15 @@ VERSION=3.4.2
 BUILD=1
 
 PYTHON=$(shell which python2.7 || which python27 || which python2.6 || which python26 || which python)
+
+# Check if Python is found
+ifeq ($(PYTHON),)
+$(error Python 2.x needed but no python found at all)
+else
 PYTHON_VERSION=$(shell ${PYTHON} -c "from distutils.sysconfig import get_python_version; print(get_python_version())")
+$(info python: $(PYTHON) $(PYTHON_VERSION))
+endif
+
 
 prefix=/usr/local
 bindir=${prefix}/bin
